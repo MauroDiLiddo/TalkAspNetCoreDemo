@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+
+<div class="row">
+    <div class="col-sm-11 offset-sm-1">
+        <form method="get" asp-page-handler="search">
+            <div class="form-group">
+                <input type="text" name="value" class="form-control" />
+            </div>
+            <input type="submit" asp-page-handler="search" class="btn btn-outline-info" value="Cerca" />
+        </form>
+    </div>
+</div>
+
+
+<partial name="_pvStatusMessage" for="@ViewData.Model.StatusMessage" />
+@foreach (var item in Model.CourseViews)
+{
+    <div class="row">
+        <div class="col-sm-2"><img class="img-thumbnail" src="@item.ImagePath" alt="@item.Title" /></div>
+        <div class="col-sm-4">
+            <h5 class="font-weight-bold">@item.Title di @item.Author</h5>
+            <p class="font-weight-normal">Numero lezioni: @item.LessonCount</p>
+            <p class="font-weight-normal">
+                Durata corso: <i class="far fa-clock"></i><time> @item.CourseDuration.ToString("h'h 'm'm'")</time>
+            </p>
+        </div>
+        <div class="col-sm-1 small"><rate for-rating-value="@item.Rating" /></div>
+        <div class="col-sm-2"><price for-price="@item.CoursePrice" /></div>
+        <div class="col-sm-3">
+            <p><a asp-page="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                <i class="fas fa-eye"></i> Dettagli</a></p>
+            <p><a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-edit"></i> Modifica</a></p>
+        </div>
+    </div>
+}

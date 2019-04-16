@@ -1,0 +1,12 @@
+﻿@model IEnumerable<LessonViewModel>
+@foreach (var item in Model)
+{
+    <div class="row border-bottom border-dark">
+        <div class="col-sm-3">@item.Id.ToString()</div>
+        <div class="col-sm-7">
+            <p class="font-weight-bold">@item.Title</p>
+            <p class="small">@item.Description</p>
+        </div>
+        <div class="col-sm-2"><i class="far fa-clock"></i><time> @item.Duration.ToString("h'h 'm'm'")</time></div>
+    </div>
+}

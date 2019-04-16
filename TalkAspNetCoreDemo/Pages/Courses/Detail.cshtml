@@ -1,0 +1,54 @@
+﻿@page
+
+@model DetailModel
+@{
+    ViewData["Title"] = Model.DetailCourse.Title;
+}
+
+<partial name="_pvStatusMessage" for="@Model.StatusMessage" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <img src="@Model.DetailCourse.ImagePath" width="100%" alt="@Model.DetailCourse.Title">
+    </div>
+</div>
+<div class="row mt-3 mb-3">
+    <div class="col-sm-12">
+        <h3 class="h3 border-bottom border-dark">@Model.DetailCourse.Title</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-9 justify-content-start order-1">
+        <p>@Model.DetailCourse.Description</p>
+    </div>
+    <div class="col-sm-3 order-0">
+        <div class="mt-2 mb-2">
+            <h4 class="border-bottom border-dark mb-1">
+                Durarta corso:
+            </h4>
+            <p class="font-weight-normal text-right mt-1">
+                <i class="far fa-clock"></i><time> @Model.DetailCourse.CourseDuration.ToString("h'h 'm'm'")</time>
+            </p>
+        </div>
+        <div class="mt-2 mb-2">
+            <rate for-rating-value="@Model.DetailCourse.Rating" for-title="Valutazione corso" />
+        </div>
+        <div class="mt-2 mb-2">
+            <price for-price="@Model.DetailCourse.CoursePrice" for-title="Prezzo corso" is-show-icon="true" />
+        </div>
+        <div class="mt-2 mb-2">
+            <a asp-page="Edit" asp-route-id="@Model.DetailCourse.Id" class="btn btn-block btn-outline-primary"><i class="fas fa-edit"></i> Modifica corso</a>
+        </div>
+        <div class="mt-2 mb-2">
+            <a asp-page="Index" class="btn btn-block btn-outline-secondary"><i class="fas fa-list"></i> Visualizza lista</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-9 offset-sm-3">
+        <partial name="_pvLessonList" for="@Model.DetailCourse.Lessons" />
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

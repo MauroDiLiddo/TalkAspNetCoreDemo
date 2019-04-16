@@ -1,0 +1,30 @@
+﻿@model ResultMessage
+
+@if (Model != null && !Model.IsEmpty())
+{
+    var statusMessageClass = string.Empty;
+    switch (Model.Type)
+    {
+        case ResultType.Info:
+            statusMessageClass = "alert-info";
+            break;
+        case ResultType.Warning:
+            statusMessageClass = "alert-warning";
+            break;
+        case ResultType.Error:
+            statusMessageClass = "alert-danger";
+            break;
+        case ResultType.Success:
+            statusMessageClass = "alert-success";
+            break;
+        default:
+            statusMessageClass = "alert-light";
+            break;
+    }
+
+    <div class="alert @statusMessageClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @Model.Message
+    </div>
+
+}

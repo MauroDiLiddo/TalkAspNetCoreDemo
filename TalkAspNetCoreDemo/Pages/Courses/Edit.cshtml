@@ -1,0 +1,90 @@
+﻿@page
+
+@model EditModel
+@{
+    ViewData["Title"] = Model.DetailCourse.Title;
+}
+
+<partial name="_pvStatusMessage" for="@Model.StatusMessage" />
+<form method="post">
+    <div class="d-none">
+        <input type="hidden" asp-for="Id" />
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="@Model.DetailCourse.ImagePath" width="100%" alt="@Model.DetailCourse.Title">
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-sm-12 order-1">
+            <div class="form-group">
+                <label asp-for="DetailCourse.Title"></label>
+                <input asp-for="DetailCourse.Title" class="form-control" />
+                <span asp-validation-for="DetailCourse.Title" class="text-danger font-weight-bold"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-9 order-1">
+            <div class="form-group">
+                <label asp-for="DetailCourse.Description"></label>
+                <textarea asp-for="DetailCourse.Description" class="form-control" rows="15" cols="30"></textarea>
+                <span asp-validation-for="DetailCourse.Description" class="text-danger font-weight-bold"></span>
+            </div>
+        </div>
+        <div class="col-sm-3 order-0">
+            <div class="mt-2 mb-2">
+                <h4 class="border-bottom border-dark mb-1">
+                    Durarta corso:
+                </h4>
+                <p class="font-weight-normal text-right mt-1">
+                    <i class="far fa-clock"></i><time> @Model.DetailCourse.CourseDuration.ToString("h'h 'm'm'")</time>
+                </p>
+            </div>
+            <div class="mt-2 mb-2">
+                <rate for-rating-value="@Model.DetailCourse.Rating" for-title="Valutazione corso" />
+            </div>
+            <div class="mt-2 mb-2">
+                <price for-price="@Model.DetailCourse.CoursePrice" for-title="Prezzo corso" is-show-icon="true" />
+            </div>
+            <div class="mt-2 mb-2">
+                <a asp-page="Index" class="btn btn-block btn-outline-secondary"><i class="fas fa-list"></i> Elenco corsi</a>
+            </div>
+            <div class="mt-2 mb-2">
+                <button type="submit" class="btn btn-block btn-outline-success"><i class="fas fa-save"></i> Aggiorna Dati</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="mt-2 mb-2">
+            <form asp-page-handler="Delete" method="post">
+                <input type="hidden" asp-for="@Model.Id" />
+                <button type="submit" class="btn btn-block btn-outline-danger"><i class="fas fa-trash-alt"></i> Elimina corso</button>
+            </form>
+        </div>
+        <h4 class="border-bottom border-dark mb-1">Lezioni</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-page-handler="AddLesson" method="post">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <button type="submit" class="btn btn-block btn-outline-primary"><i class="fas fa-plus-square"></i> Aggiungi</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form asp-page-handler="RemoveLesson" method="post">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <button type="submit" class="btn btn-block btn-outline-danger"><i class="fas fa-minus-square"></i> Rimuovi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <partial name="_pvLessonList" for="@Model.DetailCourse.Lessons" />
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
