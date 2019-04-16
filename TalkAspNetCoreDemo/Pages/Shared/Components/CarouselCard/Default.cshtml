@@ -1,0 +1,33 @@
+﻿@model IList<SlideViewModel>
+<link rel="stylesheet" href="~/css/CarouselCard.css" />
+<div class="container-fluid">
+    <h1 class="text-center mb-3"></h1>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner row w-100 mx-auto">
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var _status = (i == 1) ? "active" : string.Empty;
+                <div class="carousel-item col-md-4 @_status">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="@Model[i].UrlImage" alt="@Model[i].Title">
+                        @if (Model[i].IsFromDbContext)
+                        {
+                            <div class="card-body">
+                                <h4 class="card-title">@Model[i].Title</h4>
+                                <p class="card-text">@Model[i].Description</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon bg-primary p-3" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon bg-primary p-3" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+        </a>
+    </div>
+</div>
