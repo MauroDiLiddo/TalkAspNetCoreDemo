@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
+using TalkAspNetCoreDemo.Models.Configuration;
 using TalkAspNetCoreDemo.Models.Services;
 using TalkAspNetCoreDemo.Models.ViewModels;
 
@@ -12,9 +14,11 @@ namespace TalkAspNetCoreDemo.Pages.Courses
     public class IndexModel : PageModel
     {
         private readonly ICourseService courseService;
+        private readonly IOptions<AppSettings> options;
 
-        public IndexModel(ICourseService courseService)
+        public IndexModel(ICourseService courseService, IOptions<AppSettings> options)
         {
+            this.options = options;
             this.courseService = courseService;
         }
 
